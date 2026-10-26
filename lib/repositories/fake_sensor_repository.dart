@@ -5,10 +5,19 @@ class FakeSensorRepository implements SensorRepository {
   FakeSensorRepository({
     this.latency = const Duration(seconds: 1),
     this.shouldFail = false,
+    this.failFirstCalls = 0,
   });
 
   final Duration latency;
   final bool shouldFail;
+
+  /// Nombre de premiers appels qui échouent avant de réussir.
+  final int failFirstCalls;
+
+  int _fetchCount = 0;
+
+  /// Nombre de chargements réellement exécutés (observation et tests).
+  int get fetchCount => _fetchCount;
 
   final List<Sensor> _sensors = [
     Sensor(
@@ -45,9 +54,12 @@ class FakeSensorRepository implements SensorRepository {
 
   @override
   Future<List<Sensor>> fetchAll() async {
+    _fetchCount++;
+    final call = _fetchCount;
+
     await Future.delayed(latency);
 
-    if (shouldFail) {
+    if (shouldFail || call <= failFirstCalls) {
       throw Exception('Impossible de récupérer les capteurs');
     }
 
