@@ -144,12 +144,10 @@ void main() {
       MaterialApp(home: SensorListPage(viewModel: viewModel)),
     );
 
-    final firstLoad = viewModel.load();
     await tester.pump();
     expect(find.text('Actualisation en cours…'), findsOneWidget);
 
     await tester.pump(const Duration(milliseconds: 150));
-    await firstLoad;
     await tester.pump();
     expect(find.text('Réessayer'), findsOneWidget);
     expect(find.text('Aucune actualisation réussie'), findsOneWidget);

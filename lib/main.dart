@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 import 'repositories/fake_sensor_repository.dart';
@@ -21,7 +19,6 @@ Future<void> main() async {
   );
 
   runApp(MainApp(viewModel: viewModel));
-  unawaited(viewModel.load());
 }
 
 class MainApp extends StatelessWidget {

@@ -5,10 +5,23 @@ import '../view_models/async_state.dart';
 import '../view_models/sensor_list_view_model.dart';
 import '../widgets/sensor_card.dart';
 
-class SensorListPage extends StatelessWidget {
+class SensorListPage extends StatefulWidget {
   const SensorListPage({super.key, required this.viewModel});
 
   final SensorListViewModel viewModel;
+
+  @override
+  State<SensorListPage> createState() => _SensorListPageState();
+}
+
+class _SensorListPageState extends State<SensorListPage> {
+  SensorListViewModel get viewModel => widget.viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel.load();
+  }
 
   @override
   Widget build(BuildContext context) {
