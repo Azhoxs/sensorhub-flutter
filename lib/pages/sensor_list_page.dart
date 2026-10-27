@@ -82,7 +82,7 @@ class _SensorListPageState extends State<SensorListPage> {
           final sensor = values[index];
           return SensorCard(
             sensor: sensor,
-            onTap: () => context.push('/sensor/${sensor.id}'),
+            onTap: () => context.push('/sensor/${sensor.id}', extra: sensor),
           );
         },
       ),
